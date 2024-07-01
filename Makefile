@@ -1,6 +1,6 @@
 # https://pandoc.org/MANUAL.html#slide-shows
 
-SLIDE_OPTIONS=-t revealjs -V theme=solarized --css=./custom.css -s
+SLIDE_OPTIONS=-t revealjs -V theme=solarized --css=./custom.css --slide-level=2 -s
 
 all: docs/index.html
 
