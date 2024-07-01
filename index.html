@@ -44,10 +44,10 @@ data-cites="implgeo">@implgeo</span></p>
   <p class="date">State of the Map Europe 2024 Łódź</p>
 </section>
 
-<section id="about-me" class="slide level1">
+<section id="about-me" class="title-slide slide level1">
 <h1>About me</h1>
 <div class="fragment">
-<p>Lazy mapper</p>
+<p>Lazy mapper (55 changesets in 15 years)</p>
 </div>
 <div class="fragment">
 <p>FOSSGIS e.V. board (German OSM chapter)</p>
@@ -60,8 +60,72 @@ data-cites="implgeo">@implgeo</span></p>
 </ul>
 </div>
 </section>
-<section id="shortbread" class="slide level1">
-<h1>Shortbread</h1>
+
+<section id="shortbread-schema" class="title-slide slide level1">
+<h1>Shortbread schema</h1>
+<ul>
+<li>Basic, lean, general-purpose vector tile schema for OSM data</li>
+<li>CC0 licensed</li>
+</ul>
+<p><img data-src="images/shortbread_logo.png" style="width:20.0%" /></p>
+</section>
+
+<section>
+<section id="shortbread-styles" class="title-slide slide level1">
+<h1>Shortbread styles</h1>
+
+</section>
+<section id="versatiles-colorful" class="slide level2">
+<h2>Versatiles Colorful</h2>
+<p><img data-src="images/versatiles-colorful-z13.webp" /></p>
+</section>
+<section id="versatiles-neutrino" class="slide level2">
+<h2>Versatiles Neutrino</h2>
+<p><img data-src="images/versatiles-neutrino-z13.webp" /></p>
+</section></section>
+<section id="styling" class="title-slide slide level1">
+<h1>Styling</h1>
+
+</section>
+
+<section>
+<section id="tile-creation-workflows" class="title-slide slide level1">
+<h1>Tile creation workflows</h1>
+
+</section>
+<section id="ppf---vector-tiles" class="slide level2">
+<h2>PPF -&gt; Vector tiles</h2>
+</section>
+<section id="ppf---db---vector-tiles" class="slide level2">
+<h2>PPF -&gt; DB -&gt; Vector tiles</h2>
+</section>
+<section id="tile-storage" class="slide level2">
+<h2>Tile storage</h2>
+</section>
+<section id="tool-comparison" class="slide level2">
+<h2>Tool comparison</h2>
+</section></section>
+<section>
+<section id="schema-extensions" class="title-slide slide level1">
+<h1>Schema extensions</h1>
+
+</section>
+<section id="extend-shortbread" class="slide level2">
+<h2>Extend shortbread</h2>
+</section>
+<section id="combine-tilesets" class="slide level2">
+<h2>Combine tilesets</h2>
+</section></section>
+<section id="summary" class="title-slide slide level1">
+<h1>Summary</h1>
+
+</section>
+
+<section id="thank-you" class="title-slide slide level1">
+<h1>Thank you</h1>
+<p>Pirmin Kalberer</p>
+<p><a href="https://mapstodon.space/@implgeo"
+class="uri">https://mapstodon.space/@implgeo</a></p>
 </section>
     </div>
   </div>
@@ -217,6 +281,13 @@ data-cites="implgeo">@implgeo</span></p>
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
 
         // reveal.js plugins
         plugins: [
