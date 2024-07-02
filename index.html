@@ -29,6 +29,70 @@
       vertical-align: middle;
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/solarized.css" id="theme">
   <link rel="stylesheet" href="./custom.css"/>
@@ -61,6 +125,7 @@ data-cites="implgeo">@implgeo</span></p>
 </div>
 </section>
 
+<section>
 <section id="shortbread-schema" class="title-slide slide level1">
 <h1>Shortbread schema</h1>
 <ul>
@@ -69,53 +134,181 @@ data-cites="implgeo">@implgeo</span></p>
 </ul>
 <p><img data-src="images/shortbread_logo.png" style="width:20.0%" /></p>
 </section>
-
+<section id="schema-specification" class="title-slide slide level2">
+<h2>Schema specification</h2>
+<p><a href="https://shortbread-tiles.org/schema/1.0/"
+class="uri">https://shortbread-tiles.org/schema/1.0/</a></p>
+</section>
+</section>
 <section>
 <section id="shortbread-styles" class="title-slide slide level1">
 <h1>Shortbread styles</h1>
 
 </section>
-<section id="versatiles-colorful" class="slide level2">
+<section id="versatiles-colorful" class="title-slide slide level2">
 <h2>Versatiles Colorful</h2>
 <p><img data-src="images/versatiles-colorful-z13.webp" /></p>
 </section>
-<section id="versatiles-neutrino" class="slide level2">
+
+<section id="versatiles-neutrino" class="title-slide slide level2">
 <h2>Versatiles Neutrino</h2>
 <p><img data-src="images/versatiles-neutrino-z13.webp" /></p>
-</section></section>
+</section>
+</section>
+<section>
 <section id="styling" class="title-slide slide level1">
 <h1>Styling</h1>
-
+<p>Mapbox / MapLibre GL JSON: <a
+href="https://maplibre.org/maplibre-style-spec/"
+class="uri">https://maplibre.org/maplibre-style-spec/</a></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;birddata&quot;</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source-layer&quot;</span><span class="fu">:</span> <span class="st">&quot;change_increase&quot;</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;circle&quot;</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;paint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-radius&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;property&quot;</span><span class="fu">:</span> <span class="st">&quot;code&quot;</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;stops&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">2</span><span class="ot">,</span> <span class="dv">10</span><span class="ot">],</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">3</span><span class="ot">,</span> <span class="dv">15</span><span class="ot">],</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">4</span><span class="ot">,</span> <span class="dv">20</span><span class="ot">]</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-stroke-color&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<p><img data-src="images/gl-json-birddata.png" /></p>
+</section>
+<section id="style-editor" class="title-slide slide level2">
+<h2>Style editor</h2>
+<p>Maputnik Editor (<a
+href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
+<p><img data-src="images/maputnik-screenshot.jpg" /></p>
 </section>
 
+<section id="viewer" class="title-slide slide level2">
+<h2>Viewer</h2>
+<ul>
+<li>MapLibre GL</li>
+<li>OpenLayers (ol-mapbox-style)</li>
+<li>Leaflet (MapLibre/mapbox-gl-leaflet plugin)</li>
+<li>deck.gl (MVTLayer), kepler.gl</li>
+</ul>
+</section>
+</section>
 <section>
 <section id="tile-creation-workflows" class="title-slide slide level1">
 <h1>Tile creation workflows</h1>
 
 </section>
-<section id="ppf---vector-tiles" class="slide level2">
-<h2>PPF -&gt; Vector tiles</h2>
+<section id="ppf-vector-tiles" class="title-slide slide level2">
+<h2>PPF → Vector tiles</h2>
+<p><img data-src="images/pbf-mvt.png" /></p>
+<ul>
+<li>tilemaker (<a href="https://tilemaker.org/">tilemaker.org</a>)</li>
+<li>Planetiler (<a
+href="https://github.com/onthegomap/planetiler">github.com/onthegomap/planetiler</a>)</li>
+</ul>
 </section>
-<section id="ppf---db---vector-tiles" class="slide level2">
-<h2>PPF -&gt; DB -&gt; Vector tiles</h2>
+
+<section id="ppf-db-vector-tiles" class="title-slide slide level2">
+<h2>PPF → DB → Vector tiles</h2>
+<p><img data-src="images/pbf-db-mvt.png" /></p>
+<ul>
+<li>osm2pgsql flex (<a
+href="https://osm2pgsql.org/">osm2pgsql.org</a>)</li>
+<li>BBOX (t-rex) (<a
+href="https://www.bbox.earth/">www.bbox.earth</a>)</li>
+<li>Tilekiln (<a
+href="https://github.com/pnorman/tilekiln">github.com/pnorman/tilekiln</a>)</li>
+</ul>
 </section>
-<section id="tile-storage" class="slide level2">
+<section id="tilemaker" class="slide level3">
+<h3>tilemaker</h3>
+<ul>
+<li>Configs for OpenMapTiles and Shortbread schema</li>
+<li>Json configuration with Lua scripts</li>
+<li>Output formats: MBTiles, PMTiles</li>
+<li>No diff support</li>
+</ul>
+</section>
+<section id="shortbread-with-tilemaker" class="slide level3">
+<h3>Shortbread with tilemaker</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/shortbread-tiles/shortbread-tilemaker</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> shortbread-tilemaker</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./get-shapefiles.sh</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>:/var/tm <span class="at">-w</span> /var/tm versatiles/versatiles-tilemaker <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  tilemaker <span class="at">--config</span> config.json <span class="at">--process</span> process.lua <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input</span> data/liechtenstein-latest.osm.pbf <span class="at">--output</span> data/liechtenstein-latest.pmtiles</span></code></pre></div>
+<aside class="notes">
+<p>docker run –rm -p 8080:8080 -v $PWD:/data:ro -v
+$PWD/../../tilemaker/server/static:/static:ro
+versatiles/versatiles-tilemaker tilemaker-server –static /static –input
+/data/liechtenstein-latest.pmtiles</p>
+</aside>
+</section>
+<section id="planetiler" class="slide level3">
+<h3>Planetiler</h3>
+<ul>
+<li>Configs for OpenMapTiles and Shortbread schema</li>
+<li>Yaml configuration or Java application</li>
+<li>Output formats: MBTiles, PMTiles</li>
+<li>No diff support</li>
+<li>Extremely fast: Planet in 22m</li>
+</ul>
+</section>
+<section id="shortbread-with-planetiler" class="slide level3">
+<h3>Shortbread with Planetiler</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein</span></code></pre></div>
+<aside class="notes">
+<p>sh quickstart.sh –docker –area=liechtenstein shortbread.yml</p>
+</aside>
+</section>
+<section id="osm2pgsql-flex" class="slide level3">
+<h3>osm2pgsql flex</h3>
+</section>
+<section id="bbox" class="slide level3">
+<h3>BBOX</h3>
+</section>
+<section id="tilekiln" class="slide level3">
+<h3>Tilekiln</h3>
+</section>
+
+<section id="tile-storage" class="title-slide slide level2">
 <h2>Tile storage</h2>
+<ul>
+<li>Files / S3</li>
+<li>MBTiles + tile service</li>
+<li>PMTiles</li>
+<li>DB cache + tile service</li>
+</ul>
 </section>
-<section id="tool-comparison" class="slide level2">
-<h2>Tool comparison</h2>
-</section></section>
+</section>
 <section>
 <section id="schema-extensions" class="title-slide slide level1">
 <h1>Schema extensions</h1>
 
 </section>
-<section id="extend-shortbread" class="slide level2">
+<section id="extend-shortbread" class="title-slide slide level2">
 <h2>Extend shortbread</h2>
+
 </section>
-<section id="combine-tilesets" class="slide level2">
+
+<section id="combine-tilesets" class="title-slide slide level2">
 <h2>Combine tilesets</h2>
-</section></section>
+
+</section>
+</section>
 <section id="summary" class="title-slide slide level1">
 <h1>Summary</h1>
 
