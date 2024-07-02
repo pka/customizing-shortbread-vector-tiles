@@ -234,8 +234,8 @@ href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
 <h1>Tile creation workflows</h1>
 
 </section>
-<section id="ppf-vector-tiles" class="title-slide slide level2">
-<h2>PPF → Vector tiles</h2>
+<section id="pbf-vector-tiles" class="title-slide slide level2">
+<h2>PBF → Vector tiles</h2>
 <p><img data-src="images/pbf-mvt.png" /></p>
 <ul>
 <li>tilemaker (<a href="https://tilemaker.org/">tilemaker.org</a>)</li>
@@ -244,8 +244,8 @@ href="https://github.com/onthegomap/planetiler">github.com/onthegomap/planetiler
 </ul>
 </section>
 
-<section id="ppf-db-vector-tiles" class="title-slide slide level2">
-<h2>PPF → DB → Vector tiles</h2>
+<section id="pbf-db-vector-tiles" class="title-slide slide level2">
+<h2>PBF → DB → Vector tiles</h2>
 <p><img data-src="images/pbf-db-mvt.png" /></p>
 <ul>
 <li>osm2pgsql (<a href="https://osm2pgsql.org/">osm2pgsql.org</a>)</li>
@@ -289,12 +289,12 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>:/var/tm <span class="at">-w</span> /var/tm versatiles/versatiles-tilemaker <span class="dt">\</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  tilemaker <span class="at">--config</span> config.json <span class="at">--process</span> process.lua <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input</span> data/liechtenstein-latest.osm.pbf <span class="at">--output</span> data/liechtenstein-latest.pmtiles</span></code></pre></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">--input</span> data/liechtenstein-latest.osm.pbf <span class="at">--output</span> data/shortbread.pmtiles</span></code></pre></div>
 <aside class="notes">
 <p>docker run –rm -p 8080:8080 -v $PWD:/data:ro -v
 $PWD/../../tilemaker/server/static:/static:ro
 versatiles/versatiles-tilemaker tilemaker-server –static /static –input
-/data/liechtenstein-latest.pmtiles</p>
+/data/shortbread.pmtiles</p>
 </aside>
 </section>
 
@@ -311,7 +311,7 @@ versatiles/versatiles-tilemaker tilemaker-server –static /static –input
 <section id="shortbread-with-planetiler" class="slide level3">
 <h3>Shortbread with Planetiler</h3>
 <div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.mbtiles</span></code></pre></div>
 <aside class="notes">
 <p>sh quickstart.sh –docker –area=liechtenstein shortbread.yml</p>
 </aside>
@@ -371,12 +371,60 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="
 
 <section id="bbox" class="title-slide slide level2">
 <h2>BBOX</h2>
-
+<ul>
+<li>Generate and serve vector tiles</li>
+<li>OGC API services</li>
+<li>Raster and vector tiles</li>
+<li>PostGIS, MBTiles, PMTiles, S3</li>
+<li>Successor of t-rex tile server</li>
+</ul>
+</section>
+<section id="serve-shortbread-tiles-from-postgis" class="slide level3">
+<h3>Serve shortbread tiles from PostGIS</h3>
+<ul>
+<li>Set <code>local BBOX = true</code> in
+<code>shortbread_gen.lua</code></li>
+<li>Change <code>write_config('bbox-config.toml')</code> to
+<code>write_config('/data/bbox-config.toml')</code> when running with
+Docker</li>
+<li>Run <code>osm2pgsql</code></li>
+<li>Serve tiles with
+<code>BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve</code></li>
+</ul>
+<aside class="notes">
+<p>Serve with style:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g&#39;</span> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
+</aside>
+</section>
+<section id="serve-pmtiles-or-mbtiles-with-style" class="slide level3">
+<h3>Serve PMTiles or MBTiles with style</h3>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> styles</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> styles colorful.json</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g&#39;</span> <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve tilemaker PMTiles</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.pmtiles</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve planetiler MBTiles</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.mbtiles</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">xdg-open</span> <span class="st">&quot;https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188&quot;</span></span></code></pre></div>
 </section>
 
 <section id="tilekiln" class="title-slide slide level2">
 <h2>Tilekiln</h2>
-
+<ul>
+<li>Generate and serve vector tiles</li>
+<li>Data source: PostGIS</li>
+<li>Caching tiles in PostgreSQL</li>
+<li><a
+href="https://github.com/pnorman/tilekiln?tab=readme-ov-file#quick-start">Quickstart</a></li>
+</ul>
 </section>
 </section>
 <section>
@@ -389,10 +437,17 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="
 <ul>
 <li>Custom style</li>
 <li>Additional POIs</li>
+<li>Route relations</li>
 <li>More tags for special objects</li>
 <li>More tags for streets or buildings</li>
 <li>Other / more languages</li>
 </ul>
+<aside class="notes">
+<ul>
+<li>Route relations: highway routes, public transit, bicycle, hike
+routes, etc</li>
+</ul>
+</aside>
 </section>
 
 <section id="extend-shortbread" class="title-slide slide level2">
