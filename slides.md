@@ -34,6 +34,19 @@ GIS developer
 
 <https://shortbread-tiles.org/schema/1.0/>
 
+## Schema overview
+
+* Water
+  * `ocean`, `water_polygons`, `water_lines`, `water_lines_labels`,...
+* Countries, States, Cities
+  * `boundaries`, `boundary_labels`, `place_labels`
+* Land Use, Land Cover, Buildings
+  * `land`, `sites`, `buildings`, `addresses`
+* Streets and Transport
+  * `streets`, `street_labels`, `bridges`, `aerialways`, `ferries`, ...
+* Points of interest
+  * `public_transport`, `pois`
+
 # Shortbread styles
 
 ## Versatiles Colorful
@@ -95,14 +108,21 @@ Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
 
 ![](images/pbf-db-mvt.png)
 
-* osm2pgsql flex ([osm2pgsql.org](https://osm2pgsql.org/))
+* osm2pgsql ([osm2pgsql.org](https://osm2pgsql.org/))
 * BBOX (t-rex) ([www.bbox.earth](https://www.bbox.earth/))
 * Tilekiln ([github.com/pnorman/tilekiln](https://github.com/pnorman/tilekiln))
 
-### tilemaker
+## Tile storage
+
+* Files / S3
+* MBTiles + tile service
+* PMTiles
+* DB cache + tile service
+
+## tilemaker
 
 * Configs for OpenMapTiles and Shortbread schema
-* Json configuration with Lua scripts
+* JSON configuration with Lua scripts
 * Output formats: MBTiles, PMTiles
 * No diff support
 
@@ -127,10 +147,10 @@ docker run --rm -v $PWD:/var/tm -w /var/tm versatiles/versatiles-tilemaker \
 docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/static:/static:ro versatiles/versatiles-tilemaker tilemaker-server --static /static --input /data/liechtenstein-latest.pmtiles
 :::
 
-### Planetiler
+## Planetiler
 
 * Configs for OpenMapTiles and Shortbread schema
-* Yaml configuration or Java application
+* YAML configuration or Java application
 * Output formats: MBTiles, PMTiles
 * No diff support
 * Extremely fast: Planet in 22m
@@ -145,22 +165,77 @@ docker run -rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml -
 sh quickstart.sh --docker --area=liechtenstein shortbread.yml
 :::
 
-### osm2pgsql flex
+## osm2pgsql
 
-### BBOX
+* Flex mode: configuration with Lua scripts
+* Osm2pgsql Themepark with Shortbread config
+* `osm2pgsql-gen` for generalization in database
+* `osm2pgsql-replication` for incremental updates
+* Config generation for tile servers
 
-### Tilekiln
+### Shortbread with osm2pgsql
 
-## Tile storage
+```bash
+git clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git
 
-* Files / S3
-* MBTiles + tile service
-* PMTiles
-* DB cache + tile service
+# Start database
+docker run -d --rm --name postgis -p 127.0.0.1:5432:5432 \
+  -e POSTGRES_DB=osm -e POSTGRES_USER=osm -e POSTGRES_PASSWORD=osm postgis/postgis
 
-# Schema extensions
+# Download OSM extract
+mkdir data
+curl -sSfO --output-dir data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
+
+# Import OSM extract
+docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:ro -v $PWD/data:/data \
+  -e LUA_PATH="/osm2pgsql-themepark/lua/?.lua;;" \
+  -e PGHOST=127.0.0.1 -e PGUSER=osm -e PGPASSWORD=osm iboates/osm2pgsql:1.11.0 \
+  osm2pgsql -d osm -S /osm2pgsql-themepark/config/shortbread_gen.lua -O flex --slim \
+            /data/liechtenstein-latest.osm.pbf
+```
+
+### osm2pgsql generalization
+
+```bash
+# Download and import additional data (water polygons, etc.). Requires ogr2ogr!
+PGHOST=127.0.0.1 PGUSER=osm PGPASSWORD=osm ./osm2pgsql-themepark/themes/external/download-and-import.sh \
+  data osm oceans ocean
+
+# Generalize
+docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:ro \
+  -e LUA_PATH="/osm2pgsql-themepark/lua/?.lua;;" \
+  -e PGHOST=127.0.0.1 -e PGUSER=osm -e PGPASSWORD=osm iboates/osm2pgsql:1.11.0 \
+   osm2pgsql-gen -d osm -S /osm2pgsql-themepark/config/shortbread_gen.lua
+```
+
+### osm2pgsql updates
+
+```bash
+docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:ro \
+  -e LUA_PATH="/osm2pgsql-themepark/lua/?.lua;;" \
+  -e PGHOST=127.0.0.1 -e PGUSER=osm -e PGPASSWORD=osm iboates/osm2pgsql:1.11.0 \
+  osm2pgsql-replication update -d osm
+```
+
+## BBOX
+
+## Tilekiln
+
+# Extending Shortbread
+
+## Use cases
+
+* Custom style
+* Additional POIs
+* More tags for special objects
+* More tags for streets or buildings
+* Other / more languages
 
 ## Extend shortbread
+
+* tilemaker config
+* Planetiler config
+* osm2pgsl config
 
 ## Combine tilesets
 
