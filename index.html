@@ -139,6 +139,37 @@ data-cites="implgeo">@implgeo</span></p>
 <p><a href="https://shortbread-tiles.org/schema/1.0/"
 class="uri">https://shortbread-tiles.org/schema/1.0/</a></p>
 </section>
+
+<section id="schema-overview" class="title-slide slide level2">
+<h2>Schema overview</h2>
+<ul>
+<li>Water
+<ul>
+<li><code>ocean</code>, <code>water_polygons</code>,
+<code>water_lines</code>, <code>water_lines_labels</code>,…</li>
+</ul></li>
+<li>Countries, States, Cities
+<ul>
+<li><code>boundaries</code>, <code>boundary_labels</code>,
+<code>place_labels</code></li>
+</ul></li>
+<li>Land Use, Land Cover, Buildings
+<ul>
+<li><code>land</code>, <code>sites</code>, <code>buildings</code>,
+<code>addresses</code></li>
+</ul></li>
+<li>Streets and Transport
+<ul>
+<li><code>streets</code>, <code>street_labels</code>,
+<code>bridges</code>, <code>aerialways</code>, <code>ferries</code>,
+…</li>
+</ul></li>
+<li>Points of interest
+<ul>
+<li><code>public_transport</code>, <code>pois</code></li>
+</ul></li>
+</ul>
+</section>
 </section>
 <section>
 <section id="shortbread-styles" class="title-slide slide level1">
@@ -217,19 +248,29 @@ href="https://github.com/onthegomap/planetiler">github.com/onthegomap/planetiler
 <h2>PPF → DB → Vector tiles</h2>
 <p><img data-src="images/pbf-db-mvt.png" /></p>
 <ul>
-<li>osm2pgsql flex (<a
-href="https://osm2pgsql.org/">osm2pgsql.org</a>)</li>
+<li>osm2pgsql (<a href="https://osm2pgsql.org/">osm2pgsql.org</a>)</li>
 <li>BBOX (t-rex) (<a
 href="https://www.bbox.earth/">www.bbox.earth</a>)</li>
 <li>Tilekiln (<a
 href="https://github.com/pnorman/tilekiln">github.com/pnorman/tilekiln</a>)</li>
 </ul>
 </section>
-<section id="tilemaker" class="slide level3">
-<h3>tilemaker</h3>
+
+<section id="tile-storage" class="title-slide slide level2">
+<h2>Tile storage</h2>
+<ul>
+<li>Files / S3</li>
+<li>MBTiles + tile service</li>
+<li>PMTiles</li>
+<li>DB cache + tile service</li>
+</ul>
+</section>
+
+<section id="tilemaker" class="title-slide slide level2">
+<h2>tilemaker</h2>
 <ul>
 <li>Configs for OpenMapTiles and Shortbread schema</li>
-<li>Json configuration with Lua scripts</li>
+<li>JSON configuration with Lua scripts</li>
 <li>Output formats: MBTiles, PMTiles</li>
 <li>No diff support</li>
 </ul>
@@ -256,11 +297,12 @@ versatiles/versatiles-tilemaker tilemaker-server –static /static –input
 /data/liechtenstein-latest.pmtiles</p>
 </aside>
 </section>
-<section id="planetiler" class="slide level3">
-<h3>Planetiler</h3>
+
+<section id="planetiler" class="title-slide slide level2">
+<h2>Planetiler</h2>
 <ul>
 <li>Configs for OpenMapTiles and Shortbread schema</li>
-<li>Yaml configuration or Java application</li>
+<li>YAML configuration or Java application</li>
 <li>Output formats: MBTiles, PMTiles</li>
 <li>No diff support</li>
 <li>Extremely fast: Planet in 22m</li>
@@ -274,34 +316,92 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="
 <p>sh quickstart.sh –docker –area=liechtenstein shortbread.yml</p>
 </aside>
 </section>
-<section id="osm2pgsql-flex" class="slide level3">
-<h3>osm2pgsql flex</h3>
+
+<section id="osm2pgsql" class="title-slide slide level2">
+<h2>osm2pgsql</h2>
+<ul>
+<li>Flex mode: configuration with Lua scripts</li>
+<li>Osm2pgsql Themepark with Shortbread config</li>
+<li><code>osm2pgsql-gen</code> for generalization in database</li>
+<li><code>osm2pgsql-replication</code> for incremental updates</li>
+<li>Config generation for tile servers</li>
+</ul>
 </section>
-<section id="bbox" class="slide level3">
-<h3>BBOX</h3>
+<section id="shortbread-with-osm2pgsql" class="slide level3">
+<h3>Shortbread with osm2pgsql</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Start database</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">--rm</span> <span class="at">--name</span> postgis <span class="at">-p</span> 127.0.0.1:5432:5432 <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> POSTGRES_DB=osm <span class="at">-e</span> POSTGRES_USER=osm <span class="at">-e</span> POSTGRES_PASSWORD=osm postgis/postgis</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import OSM extract</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="at">-v</span> <span class="va">$PWD</span>/data:/data <span class="dt">\</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  osm2pgsql <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua <span class="at">-O</span> flex <span class="at">--slim</span> <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            /data/liechtenstein-latest.osm.pbf</span></code></pre></div>
 </section>
-<section id="tilekiln" class="slide level3">
-<h3>Tilekiln</h3>
+<section id="osm2pgsql-generalization" class="slide level3">
+<h3>osm2pgsql generalization</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and import additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">PGHOST</span><span class="op">=</span>127.0.0.1 <span class="va">PGUSER</span><span class="op">=</span>osm <span class="va">PGPASSWORD</span><span class="op">=</span>osm <span class="ex">./osm2pgsql-themepark/themes/external/download-and-import.sh</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  data osm oceans ocean</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generalize</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>   osm2pgsql-gen <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua</span></code></pre></div>
+</section>
+<section id="osm2pgsql-updates" class="slide level3">
+<h3>osm2pgsql updates</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  osm2pgsql-replication update <span class="at">-d</span> osm</span></code></pre></div>
 </section>
 
-<section id="tile-storage" class="title-slide slide level2">
-<h2>Tile storage</h2>
-<ul>
-<li>Files / S3</li>
-<li>MBTiles + tile service</li>
-<li>PMTiles</li>
-<li>DB cache + tile service</li>
-</ul>
+<section id="bbox" class="title-slide slide level2">
+<h2>BBOX</h2>
+
+</section>
+
+<section id="tilekiln" class="title-slide slide level2">
+<h2>Tilekiln</h2>
+
 </section>
 </section>
 <section>
-<section id="schema-extensions" class="title-slide slide level1">
-<h1>Schema extensions</h1>
+<section id="extending-shortbread" class="title-slide slide level1">
+<h1>Extending Shortbread</h1>
 
 </section>
+<section id="use-cases" class="title-slide slide level2">
+<h2>Use cases</h2>
+<ul>
+<li>Custom style</li>
+<li>Additional POIs</li>
+<li>More tags for special objects</li>
+<li>More tags for streets or buildings</li>
+<li>Other / more languages</li>
+</ul>
+</section>
+
 <section id="extend-shortbread" class="title-slide slide level2">
 <h2>Extend shortbread</h2>
-
+<ul>
+<li>tilemaker config</li>
+<li>Planetiler config</li>
+<li>osm2pgsl config</li>
+</ul>
 </section>
 
 <section id="combine-tilesets" class="title-slide slide level2">
