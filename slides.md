@@ -97,14 +97,14 @@ Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
 
 # Tile creation workflows
 
-## PPF → Vector tiles
+## PBF → Vector tiles
 
 ![](images/pbf-mvt.png)
 
 * tilemaker ([tilemaker.org](https://tilemaker.org/))
 * Planetiler ([github.com/onthegomap/planetiler](https://github.com/onthegomap/planetiler))
 
-## PPF → DB → Vector tiles
+## PBF → DB → Vector tiles
 
 ![](images/pbf-db-mvt.png)
 
@@ -140,11 +140,11 @@ curl -sSfO --output-dir data https://download.geofabrik.de/europe/liechtenstein-
 
 docker run --rm -v $PWD:/var/tm -w /var/tm versatiles/versatiles-tilemaker \
   tilemaker --config config.json --process process.lua \
-  --input data/liechtenstein-latest.osm.pbf --output data/liechtenstein-latest.pmtiles
+            --input data/liechtenstein-latest.osm.pbf --output data/shortbread.pmtiles
 ```
 
 ::: notes
-docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/static:/static:ro versatiles/versatiles-tilemaker tilemaker-server --static /static --input /data/liechtenstein-latest.pmtiles
+docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/static:/static:ro versatiles/versatiles-tilemaker tilemaker-server --static /static --input /data/shortbread.pmtiles
 :::
 
 ## Planetiler
@@ -158,7 +158,7 @@ docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/sta
 ### Shortbread with Planetiler
 
 ```bash
-docker run -rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml --download --area=liechtenstein
+docker run --rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml --download --area=liechtenstein --output=/data/shortbread.mbtiles
 ```
 
 ::: notes
@@ -219,7 +219,52 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 
 ## BBOX
 
+* Generate and serve vector tiles
+* OGC API services
+* Raster and vector tiles
+* PostGIS, MBTiles, PMTiles, S3
+* Successor of t-rex tile server
+
+### Serve shortbread tiles from PostGIS
+
+* Set `local BBOX = true` in `shortbread_gen.lua`
+* Change `write_config('bbox-config.toml')` to `write_config('/data/bbox-config.toml')`
+  when running with Docker
+* Run `osm2pgsql`
+* Serve tiles with `BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve`
+
+::: notes
+Serve with style:
+```bash
+sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g' styles/colorful.json > styles/colorful-local.json
+BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server -c data/bbox-config.toml serve
+```
+:::
+
+### Serve PMTiles or MBTiles with style
+
+```bash
+mkdir styles
+curl -L https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz \
+  | tar xz -C styles colorful.json
+sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g' \
+ styles/colorful.json > styles/colorful-local.json
+
+# Serve tilemaker PMTiles
+BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server serve data/shortbread.pmtiles
+
+# Serve planetiler MBTiles
+BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server serve data/shortbread.mbtiles
+
+xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188"
+```
+
 ## Tilekiln
+
+* Generate and serve vector tiles
+* Data source: PostGIS
+* Caching tiles in PostgreSQL
+* [Quickstart](https://github.com/pnorman/tilekiln?tab=readme-ov-file#quick-start)
 
 # Extending Shortbread
 
@@ -227,9 +272,14 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 
 * Custom style
 * Additional POIs
+* Route relations
 * More tags for special objects
 * More tags for streets or buildings
 * Other / more languages
+
+::: notes
+* Route relations: highway routes, public transit, bicycle, hike routes, etc
+:::
 
 ## Extend shortbread
 
