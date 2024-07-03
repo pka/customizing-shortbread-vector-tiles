@@ -30,6 +30,10 @@ GIS developer
 
 ![](images/shortbread_logo.png){ width=20% }
 
+::: notes
+Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Michael Reichert
+:::
+
 ## Schema specification
 
 <https://shortbread-tiles.org/schema/1.0/>
@@ -57,42 +61,13 @@ GIS developer
 
 ![](images/versatiles-neutrino-z13.webp)
 
-# Styling
-
-Mapbox / MapLibre GL JSON: <https://maplibre.org/maplibre-style-spec/>
-
-```json
-{
-  "source": "birddata",
-  "source-layer": "change_increase",
-  "type": "circle",
-  "paint": {
-    "circle-radius": {
-      "property": "code",
-      "stops": [
-        [1, 5],
-        [2, 10],
-        [3, 15],
-        [4, 20]
-      ]
-    },
-    "circle-stroke-color": "#000000"
-  }
-},
-```
-![](images/gl-json-birddata.png)
-
-## Style editor
-
-Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
-
-![](images/maputnik-screenshot.jpg)
+## Versatiles Graybeard
 
 ## Viewer
 
 * MapLibre GL
 * OpenLayers (ol-mapbox-style)
-* Leaflet (MapLibre/mapbox-gl-leaflet plugin)
+* Leaflet (maplibre-gl-leaflet plugin)
 * deck.gl (MVTLayer), kepler.gl
 
 # Tile creation workflows
@@ -158,7 +133,8 @@ docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/sta
 ### Shortbread with Planetiler
 
 ```bash
-docker run --rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml --download --area=liechtenstein --output=/data/shortbread.mbtiles
+docker run --rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml \
+  --download --area=liechtenstein --output=/data/shortbread.mbtiles
 ```
 
 ::: notes
@@ -266,7 +242,7 @@ xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colo
 * Caching tiles in PostgreSQL
 * [Quickstart](https://github.com/pnorman/tilekiln?tab=readme-ov-file#quick-start)
 
-# Extending Shortbread
+# Customize Shortbread
 
 ## Use cases
 
@@ -281,15 +257,74 @@ xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colo
 * Route relations: highway routes, public transit, bicycle, hike routes, etc
 :::
 
-## Extend shortbread
+## Styling
 
-* tilemaker config
-* Planetiler config
-* osm2pgsl config
+Mapbox / MapLibre GL JSON: <https://maplibre.org/maplibre-style-spec/>
 
-## Combine tilesets
+```json
+{
+  "source": "birddata",
+  "source-layer": "change_increase",
+  "type": "circle",
+  "paint": {
+    "circle-radius": {
+      "property": "code",
+      "stops": [
+        [1, 5],
+        [2, 10],
+        [3, 15],
+        [4, 20]
+      ]
+    },
+    "circle-stroke-color": "#000000"
+  }
+},
+```
+![](images/gl-json-birddata.png)
 
-# Summary
+## Style editor
+
+Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
+
+![](images/maputnik-screenshot.jpg)
+
+## Extending Shortbread
+
+* tilemaker config (JSON, Lua)
+* Planetiler config (YAML, Java)
+* osm2pgsl config (Lua)
+
+## Tileset combinations
+
+* Extended base map tiles
+  * No additional tiles
+  * Can break base map styles
+  * Selfhosting required
+* Additional tilesets
+  * Additional tile source in style
+  * No easy relation to base map tiles
+  * Potential duplication of data
+
+## Server-side combination
+
+* Vector tiles can be concatenated by server
+* Requires a service
+* Not supported by all tile servers
+* Caching more difficult
+
+## Example
+
+Demo
+
+
+# Wrapup
+
+* Creating & extending vector tiles is not hard
+* Keep tiles small
+* Don't break base map styles
+* Discuss extensions in [shortbread-docs repo](https://github.com/shortbread-tiles/shortbread-docs)
+* Mashups are cool again!
+
 
 # Thank you
 
