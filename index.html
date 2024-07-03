@@ -365,7 +365,8 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="
 <code>write_config('/data/bbox-config.toml')</code> when running with
 Docker</li>
 <li>Run <code>osm2pgsql</code></li>
-<li>Serve tiles on http://localhost:8080/xyz/osm.style.json</li>
+<li>Serve tiles on <a href="http://localhost:8080/xyz/osm.style.json"
+class="uri">http://localhost:8080/xyz/osm.style.json</a></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
