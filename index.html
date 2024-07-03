@@ -133,6 +133,10 @@ data-cites="implgeo">@implgeo</span></p>
 <li>CC0 licensed</li>
 </ul>
 <p><img data-src="images/shortbread_logo.png" style="width:20.0%" /></p>
+<aside class="notes">
+<p>Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda
+McCann and Michael Reichert</p>
+</aside>
 </section>
 <section id="schema-specification" class="title-slide slide level2">
 <h2>Schema specification</h2>
@@ -185,38 +189,10 @@ class="uri">https://shortbread-tiles.org/schema/1.0/</a></p>
 <h2>Versatiles Neutrino</h2>
 <p><img data-src="images/versatiles-neutrino-z13.webp" /></p>
 </section>
-</section>
-<section>
-<section id="styling" class="title-slide slide level1">
-<h1>Styling</h1>
-<p>Mapbox / MapLibre GL JSON: <a
-href="https://maplibre.org/maplibre-style-spec/"
-class="uri">https://maplibre.org/maplibre-style-spec/</a></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;birddata&quot;</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source-layer&quot;</span><span class="fu">:</span> <span class="st">&quot;change_increase&quot;</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;circle&quot;</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;paint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-radius&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;property&quot;</span><span class="fu">:</span> <span class="st">&quot;code&quot;</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;stops&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">2</span><span class="ot">,</span> <span class="dv">10</span><span class="ot">],</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">3</span><span class="ot">,</span> <span class="dv">15</span><span class="ot">],</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">4</span><span class="ot">,</span> <span class="dv">20</span><span class="ot">]</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-stroke-color&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
-<p><img data-src="images/gl-json-birddata.png" /></p>
-</section>
-<section id="style-editor" class="title-slide slide level2">
-<h2>Style editor</h2>
-<p>Maputnik Editor (<a
-href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
-<p><img data-src="images/maputnik-screenshot.jpg" /></p>
+
+<section id="versatiles-graybeard" class="title-slide slide level2">
+<h2>Versatiles Graybeard</h2>
+
 </section>
 
 <section id="viewer" class="title-slide slide level2">
@@ -224,7 +200,7 @@ href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
 <ul>
 <li>MapLibre GL</li>
 <li>OpenLayers (ol-mapbox-style)</li>
-<li>Leaflet (MapLibre/mapbox-gl-leaflet plugin)</li>
+<li>Leaflet (maplibre-gl-leaflet plugin)</li>
 <li>deck.gl (MVTLayer), kepler.gl</li>
 </ul>
 </section>
@@ -277,19 +253,19 @@ href="https://github.com/pnorman/tilekiln">github.com/pnorman/tilekiln</a>)</li>
 </section>
 <section id="shortbread-with-tilemaker" class="slide level3">
 <h3>Shortbread with tilemaker</h3>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/shortbread-tiles/shortbread-tilemaker</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> shortbread-tilemaker</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./get-shapefiles.sh</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>:/var/tm <span class="at">-w</span> /var/tm versatiles/versatiles-tilemaker <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  tilemaker <span class="at">--config</span> config.json <span class="at">--process</span> process.lua <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">--input</span> data/liechtenstein-latest.osm.pbf <span class="at">--output</span> data/shortbread.pmtiles</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/shortbread-tiles/shortbread-tilemaker</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> shortbread-tilemaker</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">./get-shapefiles.sh</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>:/var/tm <span class="at">-w</span> /var/tm versatiles/versatiles-tilemaker <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  tilemaker <span class="at">--config</span> config.json <span class="at">--process</span> process.lua <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">--input</span> data/liechtenstein-latest.osm.pbf <span class="at">--output</span> data/shortbread.pmtiles</span></code></pre></div>
 <aside class="notes">
 <p>docker run –rm -p 8080:8080 -v $PWD:/data:ro -v
 $PWD/../../tilemaker/server/static:/static:ro
@@ -310,8 +286,9 @@ versatiles/versatiles-tilemaker tilemaker-server –static /static –input
 </section>
 <section id="shortbread-with-planetiler" class="slide level3">
 <h3>Shortbread with Planetiler</h3>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.mbtiles</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.mbtiles</span></code></pre></div>
 <aside class="notes">
 <p>sh quickstart.sh –docker –area=liechtenstein shortbread.yml</p>
 </aside>
@@ -329,44 +306,44 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="
 </section>
 <section id="shortbread-with-osm2pgsql" class="slide level3">
 <h3>Shortbread with osm2pgsql</h3>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Start database</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">--rm</span> <span class="at">--name</span> postgis <span class="at">-p</span> 127.0.0.1:5432:5432 <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> POSTGRES_DB=osm <span class="at">-e</span> POSTGRES_USER=osm <span class="at">-e</span> POSTGRES_PASSWORD=osm postgis/postgis</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import OSM extract</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="at">-v</span> <span class="va">$PWD</span>/data:/data <span class="dt">\</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  osm2pgsql <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua <span class="at">-O</span> flex <span class="at">--slim</span> <span class="dt">\</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            /data/liechtenstein-latest.osm.pbf</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Start database</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">--rm</span> <span class="at">--name</span> postgis <span class="at">-p</span> 127.0.0.1:5432:5432 <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> POSTGRES_DB=osm <span class="at">-e</span> POSTGRES_USER=osm <span class="at">-e</span> POSTGRES_PASSWORD=osm postgis/postgis</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download OSM extract</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sSfO</span> <span class="at">--output-dir</span> data https://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Import OSM extract</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="at">-v</span> <span class="va">$PWD</span>/data:/data <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  osm2pgsql <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua <span class="at">-O</span> flex <span class="at">--slim</span> <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            /data/liechtenstein-latest.osm.pbf</span></code></pre></div>
 </section>
 <section id="osm2pgsql-generalization" class="slide level3">
 <h3>osm2pgsql generalization</h3>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and import additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">PGHOST</span><span class="op">=</span>127.0.0.1 <span class="va">PGUSER</span><span class="op">=</span>osm <span class="va">PGPASSWORD</span><span class="op">=</span>osm <span class="ex">./osm2pgsql-themepark/themes/external/download-and-import.sh</span> <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  data osm oceans ocean</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generalize</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>   osm2pgsql-gen <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and import additional data (water polygons, etc.). Requires ogr2ogr!</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">PGHOST</span><span class="op">=</span>127.0.0.1 <span class="va">PGUSER</span><span class="op">=</span>osm <span class="va">PGPASSWORD</span><span class="op">=</span>osm <span class="ex">./osm2pgsql-themepark/themes/external/download-and-import.sh</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  data osm oceans ocean</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generalize</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   osm2pgsql-gen <span class="at">-d</span> osm <span class="at">-S</span> /osm2pgsql-themepark/config/shortbread_gen.lua</span></code></pre></div>
 </section>
 <section id="osm2pgsql-updates" class="slide level3">
 <h3>osm2pgsql updates</h3>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  osm2pgsql-replication update <span class="at">-d</span> osm</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--network</span><span class="op">=</span>host <span class="at">-v</span> <span class="va">$PWD</span>/osm2pgsql-themepark:/osm2pgsql-themepark:ro <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> LUA_PATH=<span class="st">&quot;/osm2pgsql-themepark/lua/?.lua;;&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-e</span> PGHOST=127.0.0.1 <span class="at">-e</span> PGUSER=osm <span class="at">-e</span> PGPASSWORD=osm iboates/osm2pgsql:1.11.0 <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  osm2pgsql-replication update <span class="at">-d</span> osm</span></code></pre></div>
 </section>
 
 <section id="bbox" class="title-slide slide level2">
@@ -393,27 +370,27 @@ Docker</li>
 </ul>
 <aside class="notes">
 <p>Serve with style:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g&#39;</span> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g&#39;</span> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
 </aside>
 </section>
 <section id="serve-pmtiles-or-mbtiles-with-style" class="slide level3">
 <h3>Serve PMTiles or MBTiles with style</h3>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> styles</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz <span class="dt">\</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> styles colorful.json</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g&#39;</span> <span class="dt">\</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve tilemaker PMTiles</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.pmtiles</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve planetiler MBTiles</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.mbtiles</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">xdg-open</span> <span class="st">&quot;https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> styles</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> styles colorful.json</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g&#39;</span> <span class="dt">\</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve tilemaker PMTiles</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.pmtiles</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve planetiler MBTiles</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.mbtiles</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">xdg-open</span> <span class="st">&quot;https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188&quot;</span></span></code></pre></div>
 </section>
 
 <section id="tilekiln" class="title-slide slide level2">
@@ -428,8 +405,8 @@ href="https://github.com/pnorman/tilekiln?tab=readme-ov-file#quick-start">Quicks
 </section>
 </section>
 <section>
-<section id="extending-shortbread" class="title-slide slide level1">
-<h1>Extending Shortbread</h1>
+<section id="customize-shortbread" class="title-slide slide level1">
+<h1>Customize Shortbread</h1>
 
 </section>
 <section id="use-cases" class="title-slide slide level2">
@@ -450,23 +427,92 @@ routes, etc</li>
 </aside>
 </section>
 
-<section id="extend-shortbread" class="title-slide slide level2">
-<h2>Extend shortbread</h2>
+<section id="styling" class="title-slide slide level2">
+<h2>Styling</h2>
+<p>Mapbox / MapLibre GL JSON: <a
+href="https://maplibre.org/maplibre-style-spec/"
+class="uri">https://maplibre.org/maplibre-style-spec/</a></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;birddata&quot;</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source-layer&quot;</span><span class="fu">:</span> <span class="st">&quot;change_increase&quot;</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;circle&quot;</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;paint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-radius&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;property&quot;</span><span class="fu">:</span> <span class="st">&quot;code&quot;</span><span class="fu">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;stops&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">2</span><span class="ot">,</span> <span class="dv">10</span><span class="ot">],</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">3</span><span class="ot">,</span> <span class="dv">15</span><span class="ot">],</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">4</span><span class="ot">,</span> <span class="dv">20</span><span class="ot">]</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-stroke-color&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<p><img data-src="images/gl-json-birddata.png" /></p>
+</section>
+
+<section id="style-editor" class="title-slide slide level2">
+<h2>Style editor</h2>
+<p>Maputnik Editor (<a
+href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
+<p><img data-src="images/maputnik-screenshot.jpg" /></p>
+</section>
+
+<section id="extending-shortbread" class="title-slide slide level2">
+<h2>Extending Shortbread</h2>
 <ul>
-<li>tilemaker config</li>
-<li>Planetiler config</li>
-<li>osm2pgsl config</li>
+<li>tilemaker config (JSON, Lua)</li>
+<li>Planetiler config (YAML, Java)</li>
+<li>osm2pgsl config (Lua)</li>
 </ul>
 </section>
 
-<section id="combine-tilesets" class="title-slide slide level2">
-<h2>Combine tilesets</h2>
+<section id="tileset-combinations" class="title-slide slide level2">
+<h2>Tileset combinations</h2>
+<ul>
+<li>Extended base map tiles
+<ul>
+<li>No additional tiles</li>
+<li>Can break base map styles</li>
+<li>Selfhosting required</li>
+</ul></li>
+<li>Additional tilesets
+<ul>
+<li>Additional tile source in style</li>
+<li>No easy relation to base map tiles</li>
+<li>Potential duplication of data</li>
+</ul></li>
+</ul>
+</section>
 
+<section id="server-side-combination" class="title-slide slide level2">
+<h2>Server-side combination</h2>
+<ul>
+<li>Vector tiles can be concatenated by server</li>
+<li>Requires a service</li>
+<li>Not supported by all tile servers</li>
+<li>Caching more difficult</li>
+</ul>
+</section>
+
+<section id="example" class="title-slide slide level2">
+<h2>Example</h2>
+<p>Demo</p>
 </section>
 </section>
-<section id="summary" class="title-slide slide level1">
-<h1>Summary</h1>
-
+<section id="wrapup" class="title-slide slide level1">
+<h1>Wrapup</h1>
+<ul>
+<li>Creating &amp; extending vector tiles is not hard</li>
+<li>Keep tiles small</li>
+<li>Don’t break base map styles</li>
+<li>Discuss extensions in <a
+href="https://github.com/shortbread-tiles/shortbread-docs">shortbread-docs
+repo</a></li>
+<li>Mashups are cool again!</li>
+</ul>
 </section>
 
 <section id="thank-you" class="title-slide slide level1">
