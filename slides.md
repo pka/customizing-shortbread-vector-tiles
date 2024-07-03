@@ -155,7 +155,7 @@ sh quickstart.sh --docker --area=liechtenstein shortbread.yml
 git clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git
 
 # Start database
-docker run -d --rm --name postgis -p 127.0.0.1:5432:5432 \
+docker run -d --name postgis -p 127.0.0.1:5432:5432 \
   -e POSTGRES_DB=osm -e POSTGRES_USER=osm -e POSTGRES_PASSWORD=osm postgis/postgis
 
 # Download OSM extract
@@ -207,7 +207,11 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 * Change `write_config('bbox-config.toml')` to `write_config('/data/bbox-config.toml')`
   when running with Docker
 * Run `osm2pgsql`
-* Serve tiles with `BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve`
+* Serve tiles on <http://localhost:8080/xyz/osm.style.json>
+
+```bash
+BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve
+```
 
 ::: notes
 Serve with style:
