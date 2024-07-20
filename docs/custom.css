@@ -4,5 +4,13 @@
 }
 
 .reveal pre code {
-  max-height: 500px;
+  max-height: 800px;
+}
+
+.reveal .sourceCode {
+  overflow: scroll;
+}
+
+.reveal code {
+  font-size: smaller;
 }

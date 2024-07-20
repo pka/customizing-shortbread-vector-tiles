@@ -27,12 +27,17 @@ GIS developer
 
 * Basic, lean, general-purpose vector tile schema for OSM data
 * CC0 licensed
+* [shortbread-tiles.org](https://shortbread-tiles.org/)
 
 ![](images/shortbread_logo.png){ width=20% }
 
-::: notes
-Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Michael Reichert
-:::
+## History
+
+* Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Michael Reichert
+* Experimental downloads by Geofabrik, Mapnik style
+* Versatiles maps with three styles (CC0)
+* Handed over to community (steering committee) at Karlsruhe Hack Weekend 2/2024
+* osm.org vector tiles with minutely updates
 
 ## Schema specification
 
@@ -55,13 +60,21 @@ Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Mich
 
 ## Versatiles Colorful
 
-![](images/versatiles-colorful-z13.webp)
+![](images/versatiles-colorful.jpg)
+
+colorful, full featured map
+
+## Versatiles Graybeard
+
+![](images/versatiles-greybeard.jpg)
+
+gray, full featured map
 
 ## Versatiles Neutrino
 
-![](images/versatiles-neutrino-z13.webp)
+![](images/versatiles-neutrino.jpg)
 
-## Versatiles Graybeard
+light basemap
 
 ## Viewer
 
@@ -84,8 +97,8 @@ Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Mich
 ![](images/pbf-db-mvt.png)
 
 * osm2pgsql ([osm2pgsql.org](https://osm2pgsql.org/))
-* BBOX (t-rex) ([www.bbox.earth](https://www.bbox.earth/))
-* Tilekiln ([github.com/pnorman/tilekiln](https://github.com/pnorman/tilekiln))
+  * BBOX (t-rex) ([www.bbox.earth](https://www.bbox.earth/))
+  * Tilekiln ([github.com/pnorman/tilekiln](https://github.com/pnorman/tilekiln))
 
 ## Tile storage
 
@@ -133,8 +146,8 @@ docker run --rm -p 8080:8080 -v $PWD:/data:ro -v $PWD/../../tilemaker/server/sta
 ### Shortbread with Planetiler
 
 ```bash
-docker run --rm -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml \
-  --download --area=liechtenstein --output=/data/shortbread.mbtiles
+docker run --rm --user=$UID -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml \
+  --download --area=liechtenstein --output=/data/shortbread.pmtiles
 ```
 
 ::: notes
@@ -199,6 +212,7 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 * OGC API services
 * Raster and vector tiles
 * PostGIS, MBTiles, PMTiles, S3
+* Non-Mercator tile grids
 * Successor of t-rex tile server
 
 ### Serve shortbread tiles from PostGIS
@@ -213,13 +227,12 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve
 ```
 
-::: notes
+<!-- 
 Serve with style:
 ```bash
 sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g' styles/colorful.json > styles/colorful-local.json
 BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server -c data/bbox-config.toml serve
 ```
-:::
 
 ### Serve PMTiles or MBTiles with style
 
@@ -238,6 +251,7 @@ BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server serve dat
 
 xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188"
 ```
+ -->
 
 ## Tilekiln
 
@@ -254,7 +268,7 @@ xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colo
 * Additional POIs
 * Route relations
 * More tags for special objects
-* More tags for streets or buildings
+* Additional tags for streets or buildings
 * Other / more languages
 
 ::: notes
@@ -276,8 +290,7 @@ Mapbox / MapLibre GL JSON: <https://maplibre.org/maplibre-style-spec/>
       "stops": [
         [1, 5],
         [2, 10],
-        [3, 15],
-        [4, 20]
+        [3, 15]
       ]
     },
     "circle-stroke-color": "#000000"
@@ -291,6 +304,12 @@ Mapbox / MapLibre GL JSON: <https://maplibre.org/maplibre-style-spec/>
 Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
 
 ![](images/maputnik-screenshot.jpg)
+
+## Versatiles Styler
+
+[maplibre-versatiles-styler](https://github.com/versatiles-org/maplibre-versatiles-styler)
+
+![](images/maplibre-versatiles-styler.jpg)
 
 ## Extending Shortbread
 
@@ -316,10 +335,73 @@ Maputnik Editor ([maplibre.org/maputnik](https://maplibre.org/maputnik/))
 * Not supported by all tile servers
 * Caching more difficult
 
+# Publish custom tiles
+
+## PMTiles, style and sprites
+
+```bash
+# Generate Shortbread tiles
+docker run --rm --user=$UID -v $PWD/data:/data ghcr.io/onthegomap/planetiler shortbread.yml \
+  --download --area=liechtenstein --output=/data/shortbread.pmtiles
+# Download Versatiles Styles + Assets
+mkdir -p styles assets/sprites
+wget -O - https://github.com/versatiles-org/versatiles-style/releases/latest/download/styles.tar.gz | tar xz -C styles
+wget -O - https://github.com/versatiles-org/versatiles-style/releases/latest/download/sprites.tar.gz | tar xz -C assets/sprites
+# Replace tile source with PMTiles URL
+jq '.sources."versatiles-shortbread".url="pmtiles:///shortbread.pmtiles" | del(.sources."versatiles-shortbread".tiles)' \
+   styles/colorful.json > styles/colorful-pmtiles.json
+# Make sprite URL relative
+sed --in-place -e 's!https://tiles.versatiles.org/assets/sprites!/assets/sprites!g' styles/*.json
+```
+
+## Viewer HTML
+
+index.html:
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MapLibre Viewer</title>
+    <script src='https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.css' rel='stylesheet' />
+    <script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
+    <style>
+        body { margin: 0; }
+        #map { height:100%; width:100%;}
+    </style>
+  </head>
+  <body>
+    <div id="map"/>
+    <script>
+      let protocol = new pmtiles.Protocol();
+      maplibregl.addProtocol("pmtiles", protocol.tile);
+      var map = new maplibregl.Map({
+        container: 'map',
+        style: 'styles/colorful-mbtiles.json'
+      });
+    </script>
+  </body>
+</html>
+```
+
+## Deploy and serve
+
+```
+# Upload to site supporting HTTP Range Requests
+
+scp -r . example.com:
+
+
+# Or deploy to a hosting provider like Github pages
+```
+
 ## Example
 
-Demo
+![](images/Equal-Earth-bbox.jpg)
 
+<https://maps.bbox.earth/>
+
+MapLibre with Shortbread PMTiles.
 
 # Wrapup
 
