@@ -35,8 +35,8 @@ GIS developer
 
 * Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda McCann and Michael Reichert
 * Experimental downloads by Geofabrik, Mapnik style
-* Versatiles maps with three styles (CC0)
-* Handed over to community (steering committee) at Karlsruhe Hack Weekend 2/2024
+* Versatiles maps with three styles (Unlicence/CC0)
+* Handed over to community (PSC) at Karlsruhe Hack Weekend 2/2024
 * osm.org vector tiles with minutely updates
 
 ## Schema specification
@@ -405,10 +405,10 @@ MapLibre with Shortbread PMTiles.
 
 # Wrapup
 
-* Creating & extending vector tiles is not hard
+* Creating custom maps got much easier
 * Keep tiles small
 * Don't break base map styles
-* Discuss extensions in [shortbread-docs repo](https://github.com/shortbread-tiles/shortbread-docs)
+* Discuss core extensions in [shortbread-docs repo](https://github.com/shortbread-tiles/shortbread-docs)
 * Mashups are cool again!
 
 
