@@ -131,13 +131,23 @@ data-cites="implgeo">@implgeo</span></p>
 <ul>
 <li>Basic, lean, general-purpose vector tile schema for OSM data</li>
 <li>CC0 licensed</li>
+<li><a
+href="https://shortbread-tiles.org/">shortbread-tiles.org</a></li>
 </ul>
 <p><img data-src="images/shortbread_logo.png" style="width:20.0%" /></p>
-<aside class="notes">
-<p>Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda
-McCann and Michael Reichert</p>
-</aside>
 </section>
+<section id="history" class="title-slide slide level2">
+<h2>History</h2>
+<ul>
+<li>Created for Geofabrik by Thomas Skowron, Christine Karch, Amanda
+McCann and Michael Reichert</li>
+<li>Experimental downloads by Geofabrik, Mapnik style</li>
+<li>Versatiles maps with three styles (Unlicence/CC0)</li>
+<li>Handed over to community (PSC) at Karlsruhe Hack Weekend 2/2024</li>
+<li>osm.org vector tiles with minutely updates</li>
+</ul>
+</section>
+
 <section id="schema-specification" class="title-slide slide level2">
 <h2>Schema specification</h2>
 <p><a href="https://shortbread-tiles.org/schema/1.0/"
@@ -182,17 +192,20 @@ class="uri">https://shortbread-tiles.org/schema/1.0/</a></p>
 </section>
 <section id="versatiles-colorful" class="title-slide slide level2">
 <h2>Versatiles Colorful</h2>
-<p><img data-src="images/versatiles-colorful-z13.webp" /></p>
-</section>
-
-<section id="versatiles-neutrino" class="title-slide slide level2">
-<h2>Versatiles Neutrino</h2>
-<p><img data-src="images/versatiles-neutrino-z13.webp" /></p>
+<p><img data-src="images/versatiles-colorful.jpg" /></p>
+<p>colorful, full featured map</p>
 </section>
 
 <section id="versatiles-graybeard" class="title-slide slide level2">
 <h2>Versatiles Graybeard</h2>
+<p><img data-src="images/versatiles-greybeard.jpg" /></p>
+<p>gray, full featured map</p>
+</section>
 
+<section id="versatiles-neutrino" class="title-slide slide level2">
+<h2>Versatiles Neutrino</h2>
+<p><img data-src="images/versatiles-neutrino.jpg" /></p>
+<p>light basemap</p>
 </section>
 
 <section id="viewer" class="title-slide slide level2">
@@ -224,11 +237,13 @@ href="https://github.com/onthegomap/planetiler">github.com/onthegomap/planetiler
 <h2>PBF → DB → Vector tiles</h2>
 <p><img data-src="images/pbf-db-mvt.png" /></p>
 <ul>
-<li>osm2pgsql (<a href="https://osm2pgsql.org/">osm2pgsql.org</a>)</li>
+<li>osm2pgsql (<a href="https://osm2pgsql.org/">osm2pgsql.org</a>)
+<ul>
 <li>BBOX (t-rex) (<a
 href="https://www.bbox.earth/">www.bbox.earth</a>)</li>
 <li>Tilekiln (<a
 href="https://github.com/pnorman/tilekiln">github.com/pnorman/tilekiln</a>)</li>
+</ul></li>
 </ul>
 </section>
 
@@ -287,8 +302,8 @@ versatiles/versatiles-tilemaker tilemaker-server –static /static –input
 <section id="shortbread-with-planetiler" class="slide level3">
 <h3>Shortbread with Planetiler</h3>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.mbtiles</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--user</span><span class="op">=</span><span class="va">$UID</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.pmtiles</span></code></pre></div>
 <aside class="notes">
 <p>sh quickstart.sh –docker –area=liechtenstein shortbread.yml</p>
 </aside>
@@ -353,6 +368,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="
 <li>OGC API services</li>
 <li>Raster and vector tiles</li>
 <li>PostGIS, MBTiles, PMTiles, S3</li>
+<li>Non-Mercator tile grids</li>
 <li>Successor of t-rex tile server</li>
 </ul>
 </section>
@@ -370,29 +386,31 @@ class="uri">http://localhost:8080/xyz/osm.style.json</a></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
-<aside class="notes">
-<p>Serve with style:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g&#39;</span> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
-</aside>
-</section>
-<section id="serve-pmtiles-or-mbtiles-with-style" class="slide level3">
-<h3>Serve PMTiles or MBTiles with style</h3>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> styles</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz <span class="dt">\</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> styles colorful.json</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">&#39;s!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g&#39;</span> <span class="dt">\</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> styles/colorful.json <span class="op">&gt;</span> styles/colorful-local.json</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve tilemaker PMTiles</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.pmtiles</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Serve planetiler MBTiles</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_ASSETS__STATIC</span><span class="op">=</span><span class="st">&#39;[{dir=&quot;styles&quot;,path=&quot;/styles&quot;}]&#39;</span> <span class="ex">bbox-tile-server</span> serve data/shortbread.mbtiles</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">xdg-open</span> <span class="st">&quot;https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188&quot;</span></span></code></pre></div>
+<!-- 
+Serve with style:
+```bash
+sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g' styles/colorful.json > styles/colorful-local.json
+BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server -c data/bbox-config.toml serve
+```
+
+### Serve PMTiles or MBTiles with style
+
+```bash
+mkdir styles
+curl -L https://github.com/versatiles-org/versatiles-style/releases/download/v4.4.1/styles.tar.gz \
+  | tar xz -C styles colorful.json
+sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/shortbread/{z}/{x}/{y}.pbf!g' \
+ styles/colorful.json > styles/colorful-local.json
+
+# Serve tilemaker PMTiles
+BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server serve data/shortbread.pmtiles
+
+# Serve planetiler MBTiles
+BBOX_ASSETS__STATIC='[{dir="styles",path="/styles"}]' bbox-tile-server serve data/shortbread.mbtiles
+
+xdg-open "https://maplibre.org/maputnik/?style=http://localhost:8080/styles/colorful-local.json#15/47.1377/9.5188"
+```
+ -->
 </section>
 
 <section id="tilekiln" class="title-slide slide level2">
@@ -418,7 +436,7 @@ href="https://github.com/pnorman/tilekiln?tab=readme-ov-file#quick-start">Quicks
 <li>Additional POIs</li>
 <li>Route relations</li>
 <li>More tags for special objects</li>
-<li>More tags for streets or buildings</li>
+<li>Additional tags for streets or buildings</li>
 <li>Other / more languages</li>
 </ul>
 <aside class="notes">
@@ -434,24 +452,23 @@ routes, etc</li>
 <p>Mapbox / MapLibre GL JSON: <a
 href="https://maplibre.org/maplibre-style-spec/"
 class="uri">https://maplibre.org/maplibre-style-spec/</a></p>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;birddata&quot;</span><span class="fu">,</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source-layer&quot;</span><span class="fu">:</span> <span class="st">&quot;change_increase&quot;</span><span class="fu">,</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;circle&quot;</span><span class="fu">,</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;paint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-radius&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;property&quot;</span><span class="fu">:</span> <span class="st">&quot;code&quot;</span><span class="fu">,</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;stops&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">2</span><span class="ot">,</span> <span class="dv">10</span><span class="ot">],</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">3</span><span class="ot">,</span> <span class="dv">15</span><span class="ot">],</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">4</span><span class="ot">,</span> <span class="dv">20</span><span class="ot">]</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-stroke-color&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source&quot;</span><span class="fu">:</span> <span class="st">&quot;birddata&quot;</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source-layer&quot;</span><span class="fu">:</span> <span class="st">&quot;change_increase&quot;</span><span class="fu">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;circle&quot;</span><span class="fu">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;paint&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-radius&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;property&quot;</span><span class="fu">:</span> <span class="st">&quot;code&quot;</span><span class="fu">,</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;stops&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">1</span><span class="ot">,</span> <span class="dv">5</span><span class="ot">],</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">2</span><span class="ot">,</span> <span class="dv">10</span><span class="ot">],</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="ot">[</span><span class="dv">3</span><span class="ot">,</span> <span class="dv">15</span><span class="ot">]</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="ot">]</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;circle-stroke-color&quot;</span><span class="fu">:</span> <span class="st">&quot;#000000&quot;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span><span class="er">,</span></span></code></pre></div>
 <p><img data-src="images/gl-json-birddata.png" /></p>
 </section>
 
@@ -460,6 +477,13 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb9-1"><a href="
 <p>Maputnik Editor (<a
 href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
 <p><img data-src="images/maputnik-screenshot.jpg" /></p>
+</section>
+
+<section id="versatiles-styler" class="title-slide slide level2">
+<h2>Versatiles Styler</h2>
+<p><a
+href="https://github.com/versatiles-org/maplibre-versatiles-styler">maplibre-versatiles-styler</a></p>
+<p><img data-src="images/maplibre-versatiles-styler.jpg" /></p>
 </section>
 
 <section id="extending-shortbread" class="title-slide slide level2">
@@ -498,19 +522,85 @@ href="https://maplibre.org/maputnik/">maplibre.org/maputnik</a>)</p>
 <li>Caching more difficult</li>
 </ul>
 </section>
+</section>
+<section>
+<section id="publish-custom-tiles" class="title-slide slide level1">
+<h1>Publish custom tiles</h1>
+
+</section>
+<section id="pmtiles-style-and-sprites"
+class="title-slide slide level2">
+<h2>PMTiles, style and sprites</h2>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Shortbread tiles</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">--user</span><span class="op">=</span><span class="va">$UID</span> <span class="at">-v</span> <span class="va">$PWD</span>/data:/data ghcr.io/onthegomap/planetiler shortbread.yml <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--download</span> <span class="at">--area</span><span class="op">=</span>liechtenstein <span class="at">--output</span><span class="op">=</span>/data/shortbread.pmtiles</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Versatiles Styles + Assets</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> styles assets/sprites</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> <span class="at">-</span> https://github.com/versatiles-org/versatiles-style/releases/latest/download/styles.tar.gz <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> styles</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> <span class="at">-</span> https://github.com/versatiles-org/versatiles-style/releases/latest/download/sprites.tar.gz <span class="kw">|</span> <span class="fu">tar</span> xz <span class="at">-C</span> assets/sprites</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace tile source with PMTiles URL</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">jq</span> <span class="st">&#39;.sources.&quot;versatiles-shortbread&quot;.url=&quot;pmtiles:///shortbread.pmtiles&quot; | del(.sources.&quot;versatiles-shortbread&quot;.tiles)&#39;</span> <span class="dt">\</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>   styles/colorful.json <span class="op">&gt;</span> styles/colorful-pmtiles.json</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sprite URL relative</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">--in-place</span> <span class="at">-e</span> <span class="st">&#39;s!https://tiles.versatiles.org/assets/sprites!/assets/sprites!g&#39;</span> styles/<span class="pp">*</span>.json</span></code></pre></div>
+</section>
+
+<section id="viewer-html" class="title-slide slide level2">
+<h2>Viewer HTML</h2>
+<p>index.html:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;html&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;head&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;title&gt;</span>MapLibre Viewer<span class="kw">&lt;/title&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">&#39;https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js&#39;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;link</span> <span class="er">href</span><span class="ot">=</span><span class="st">&#39;https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.css&#39;</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&#39;stylesheet&#39;</span> <span class="kw">/&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js&quot;</span><span class="kw">&gt;&lt;/script&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;style&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        body { <span class="kw">margin</span>: <span class="dv">0</span><span class="op">;</span> }</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#map</span> { <span class="kw">height</span>:<span class="dv">100</span><span class="dt">%</span><span class="op">;</span> <span class="kw">width</span>:<span class="dv">100</span><span class="dt">%</span><span class="op">;</span>}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/style&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/head&gt;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;body&gt;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;map&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;script&gt;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> protocol <span class="op">=</span> <span class="kw">new</span> pmtiles<span class="op">.</span><span class="fu">Protocol</span>()<span class="op">;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      maplibregl<span class="op">.</span><span class="fu">addProtocol</span>(<span class="st">&quot;pmtiles&quot;</span><span class="op">,</span> protocol<span class="op">.</span><span class="at">tile</span>)<span class="op">;</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> map <span class="op">=</span> <span class="kw">new</span> maplibregl<span class="op">.</span><span class="fu">Map</span>({</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">container</span><span class="op">:</span> <span class="st">&#39;map&#39;</span><span class="op">,</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">style</span><span class="op">:</span> <span class="st">&#39;styles/colorful-mbtiles.json&#39;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/script&gt;</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/body&gt;</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/html&gt;</span></span></code></pre></div>
+</section>
+
+<section id="deploy-and-serve" class="title-slide slide level2">
+<h2>Deploy and serve</h2>
+<pre><code># Upload to site supporting HTTP Range Requests
+
+scp -r . example.com:
+
+
+# Or deploy to a hosting provider like Github pages</code></pre>
+</section>
 
 <section id="example" class="title-slide slide level2">
 <h2>Example</h2>
-<p>Demo</p>
+<p><img data-src="images/Equal-Earth-bbox.jpg" /></p>
+<p><a href="https://maps.bbox.earth/"
+class="uri">https://maps.bbox.earth/</a></p>
+<p>MapLibre with Shortbread PMTiles.</p>
 </section>
 </section>
 <section id="wrapup" class="title-slide slide level1">
 <h1>Wrapup</h1>
 <ul>
-<li>Creating &amp; extending vector tiles is not hard</li>
+<li>Creating custom maps got much easier</li>
 <li>Keep tiles small</li>
 <li>Don’t break base map styles</li>
-<li>Discuss extensions in <a
+<li>Discuss core extensions in <a
 href="https://github.com/shortbread-tiles/shortbread-docs">shortbread-docs
 repo</a></li>
 <li>Mashups are cool again!</li>
