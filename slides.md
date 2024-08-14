@@ -367,7 +367,7 @@ index.html:
     <script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
     <style>
         body { margin: 0; }
-        #map { height:100%; width:100%;}
+        #map { height: 100vh; width: 100vw;}
     </style>
   </head>
   <body>
@@ -377,7 +377,7 @@ index.html:
       maplibregl.addProtocol("pmtiles", protocol.tile);
       var map = new maplibregl.Map({
         container: 'map',
-        style: 'styles/colorful-mbtiles.json'
+        style: 'styles/colorful-pmtiles.json'
       });
     </script>
   </body>
