@@ -1,6 +1,6 @@
 % Customizing Shortbread vector tiles
 % Pirmin Kalberer @implgeo
-% State of the Map Europe 2024 Łódź
+% FOSS4G 2024 Belém
 ---
 width: 1600
 height: 900
@@ -227,7 +227,7 @@ docker run --rm --network=host -v $PWD/osm2pgsql-themepark:/osm2pgsql-themepark:
 BBOX_DATASOURCE_DB=postgres://osm:osm@127.0.0.1/osm bbox-tile-server -c data/bbox-config.toml serve
 ```
 
-<!-- 
+<!--
 Serve with style:
 ```bash
 sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g' styles/colorful.json > styles/colorful-local.json
