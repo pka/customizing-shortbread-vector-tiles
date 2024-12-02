@@ -105,7 +105,7 @@
   <h1 class="title">Customizing Shortbread vector tiles</h1>
   <p class="author">Pirmin Kalberer <span class="citation"
 data-cites="implgeo">@implgeo</span></p>
-  <p class="date">State of the Map Europe 2024 Łódź</p>
+  <p class="date">FOSS4G 2024 Belém</p>
 </section>
 
 <section id="about-me" class="title-slide slide level1">
@@ -386,7 +386,7 @@ class="uri">http://localhost:8080/xyz/osm.style.json</a></li>
 </ul>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">BBOX_DATASOURCE_DB</span><span class="op">=</span>postgres://osm:osm@127.0.0.1/osm <span class="ex">bbox-tile-server</span> <span class="at">-c</span> data/bbox-config.toml serve</span></code></pre></div>
-<!-- 
+<!--
 Serve with style:
 ```bash
 sed 's!https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}!http://localhost:8080/xyz/osm/{z}/{x}/{y}.pbf!g' styles/colorful.json > styles/colorful-local.json
