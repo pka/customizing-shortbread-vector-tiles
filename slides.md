@@ -1,4 +1,4 @@
-% Customizing Shortbread vector tiles
+% Shortbread - the new OpenStreetMap vector tile schema
 % Pirmin Kalberer @implgeo
 % FOSS4G 2024 Belém
 ---
